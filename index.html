@@ -78,7 +78,7 @@
         // var vid = $('#v0')[0]; // jquery option
 
         // dynamically set the page height according to video length
-        vid.addEventListener('loadedmetadata', function () {
+        vid.addEventListener('onloadedmetadata', function () {
             setHeight.style.height = Math.floor(vid.duration) * playbackConst + "px";
         });
 
