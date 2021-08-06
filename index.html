@@ -17,82 +17,44 @@
 </head>
 
 <body>
-
-    <section class="container">
-        <div class="content">
-            <h1>Scroll to Begin</h1>
-            <p>Start it like this..</p>
+    <div class="app">
+        <div id="bound-one" class="scroll-bound">
+            <div class="content">
+                <video width="600">
+                    <source src="https://d2btxpp3s2xrq5.cloudfront.net/intro_extended.webm" type="video/webm">
+                    <p>Your user agent does not support the HTML5 Video element.</p>
+                </video>
+            </div>
         </div>
-    </section>
 
-    <section class="container">
-        <div class="content">
-            <h1>Step 1</h1>
-            <p>Start it like this..</p>
-        </div>
-    </section>
 
-    <section class="container">
-        <div class="content">
-            <h1>Step 2</h1>
-            <p>Start it like this..</p>
-        </div>
-    </section>
 
-    <section class="container">
-        <div class="content">
-            <h1>Step 3</h1>
-            <p>Start it like this..</p>
-        </div>
-    </section>
 
-    <section class="container">
-        <div class="content">
-            <h1>Step 4</h1>
-            <p>Start it like this..</p>
-        </div>
-    </section>
 
-    <div id="set-height"></div>
-
-    <video id="video" tabindex="0" , autobuffer preload>
-        <source type='video/mp4' src="intro.mp4">
-        </source>
-    </video>
+    </div>
     <script src="sticky.js"></script>
     <script>
+        const registerVideo = (bound, video) => {
+            bound = document.querySelector(bound);
+            video = document.querySelector(video);
+            const scrollVideo = () => {
+                if (video.duration) {
+                    const distanceFromTop = window.scrollY + bound.getBoundingClientRect().top;
+                    const rawPercentScrolled = (window.scrollY - distanceFromTop) / (bound.scrollHeight - window.innerHeight);
+                    const percentScrolled = Math.min(Math.max(rawPercentScrolled, 0), 1);
 
-        enterView({
-            selector: 'section',
-            enter: function (el) {
-                el.classList.add('entered');
+                    video.currentTime = video.duration * percentScrolled;
+                }
+                requestAnimationFrame(scrollVideo);
             }
-        })
-
-        var frameNumber = 0, // start video at frame 0
-            // lower numbers = faster playback
-            playbackConst = 1000,
-            //clip 0.6 sec
-            // get page height from video duration
-            setHeight = document.getElementById("set-height"),
-            // select video element         
-            vid = document.getElementById('video');
-        // var vid = $('#v0')[0]; // jquery option
-
-        // dynamically set the page height according to video length
-        vid.addEventListener('onloadedmetadata', function () {
-            setHeight.style.height = Math.floor(vid.duration) * playbackConst + "px";
-        });
-
-
-        // Use requestAnimationFrame for smooth playback
-        function scrollPlay() {
-            var frameNumber = window.pageYOffset / playbackConst;
-            vid.currentTime = frameNumber;
-            window.requestAnimationFrame(scrollPlay);
+            requestAnimationFrame(scrollVideo);
         }
 
-        scrollPlay();
+
+        registerVideo("#bound-one", "#bound-one video");
+
+
+
 
     </script>
 </body>
