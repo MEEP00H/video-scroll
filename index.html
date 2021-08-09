@@ -22,26 +22,11 @@
             <div class="content">
                 <video>
                     <source src="https://d2btxpp3s2xrq5.cloudfront.net/intro_extended.webm" type="video/webm">
-                    <p>Your user agent does not support the HTML5 Video element.</p>
                 </video>
             </div>
         </div>
-
-        <div id="bound-two" class="scroll-bound">
-            <div class="content">
-                <video>
-                    <source src="https://d3k3i3t3p2vb36.cloudfront.net/v9-webm.webm" type="video/webm">
-                    <p>Your user agent does not support the HTML5 Video element.</p>
-                </video>
-            </div>
-        </div>
-
-
-
-
-
     </div>
-    <script src="sticky.js"></script>
+
     <script>
         const registerVideo = (bound, video) => {
             bound = document.querySelector(bound);
@@ -51,9 +36,9 @@
                     const distanceFromTop = window.scrollY + bound.getBoundingClientRect().top;
                     const rawPercentScrolled = (window.scrollY - distanceFromTop) / (bound.scrollHeight - window.innerHeight);
                     const percentScrolled = Math.min(Math.max(rawPercentScrolled, 0), 1);
-
-                    video.currentTime = video.duration * percentScrolled;
+                    video.currentTime = (video.duration * percentScrolled);
                 }
+
                 requestAnimationFrame(scrollVideo);
             }
             requestAnimationFrame(scrollVideo);
